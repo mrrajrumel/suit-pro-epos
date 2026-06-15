@@ -7,16 +7,22 @@
 - কাজের ডিরেক্টরিতে `package.json` থাকা দরকার
 
 ### ইনিশিয়াল সেটআপ
-1. রিপোজিটরি ক্লোন করুন বা ফাইলগুলো সেই ফোল্ডারে রাখুন:
+1. **রিপোজিটরি ক্লোন করুন GitHub থেকে:**
    ```bash
-   git clone <your-repo-url> suit-pro-epos
+   git clone https://github.com/mrrajrumel/suit-pro-epos.git suit-pro-epos
    cd suit-pro-epos
    ```
+   
 2. ডিপেনডেন্সি ইনস্টল করুন:
    ```bash
    npm install
    ```
-3. `.env` ফাইল তৈরি করুন যদি না থাকে। আপনার প্রকল্পে এখন এটি তৈরি করা আছে।
+   
+3. `.env` ফাইল চেক করুন (ইতিমধ্যে `.env.example` আছে):
+   ```bash
+   cp .env.example .env
+   ```
+   প্রয়োজন অনুযায়ী `.env` ফাইল এডিট করুন।
 
 ### ওয়েব ডেভ সার্ভার চালানো
 - ওয়েব ডেভ মোড চালাতে:
