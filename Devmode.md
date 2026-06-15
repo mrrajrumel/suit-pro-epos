@@ -140,8 +140,19 @@
 - Electron বিল্ড: `npm run electron:build`
 
 ## 6. ট্রাবলশুটিং
+### Windows PowerShell Execution Policy Error
+**সমস্যা:** `npm : File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts is disabled`
 
-- যদি `vite` কমান্ড না পড়ে, `npm install` আবার চালান
+**সমাধান:**
+1. PowerShell কে **Administrator** হিসেবে খুলুন (ডান ক্লিক > Run as administrator)
+2. এই কমান্ড চালান:
+   ```powershell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+3. `Y` দিয়ে confirm করুন
+4. এখন `npm` কমান্ড চলবে
+
+### অন্যান্য সমস্যা- যদি `vite` কমান্ড না পড়ে, `npm install` আবার চালান
 - যদি `electron` না থেকে থাকে, `npm install` নিশ্চিত করুন
 - পোর্ট কনফ্লিক্ট হলে অন্য ব্রাউজারে বা টার্মিনালে `localhost:5173` এবং `localhost:3000` চেক করুন
 
