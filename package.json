@@ -1,0 +1,66 @@
+{
+  "name": "suitpro-epos",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "electron-main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"vite --port 5173\"",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "server": "node --loader ts-node/esm server.ts",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "electron:build": "npm run build && electron-builder"
+  },
+  "build": {
+    "appId": "com.suitpro.epos",
+    "productName": "SuitPro EPOS",
+    "files": [
+      "dist/**/*",
+      "electron-main.js",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "lucide-react": "^0.379.0",
+    "recharts": "^3.8.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^4.3.0",
+    "ts-node-dev": "^2.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.10",
+    "wait-on": "^7.2.0"
+  }
+}

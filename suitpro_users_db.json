@@ -1,0 +1,18 @@
+[
+  {
+    "id": "user-owner-rumel",
+    "username": "Rumel",
+    "password": "login_not_needed_for_hardcoded",
+    "name": "Rumel Ahmed",
+    "role": "Owner",
+    "createdAt": "2026-06-10T13:45:00Z"
+  },
+  {
+    "id": "usr-1781271852307",
+    "username": "Zack",
+    "password": "Zack",
+    "name": "Zack",
+    "role": "Manager",
+    "createdAt": "2026-06-12T13:44:12.307Z"
+  }
+]

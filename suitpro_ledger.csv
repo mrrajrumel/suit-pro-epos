@@ -1,0 +1,3 @@
+Invoice ID,Timestamp,Items Summary,Subtotal (GBP),VAT 20% (GBP),Total Due (GBP),Net Margin Profit (GBP),Payment Method,Salesperson
+"SP-904835","2026-06-12T13:28:24.835Z","fd (Qty:1, Size:12, Col:6555)",111111,22222.2,133333.2,111110.98,"Cash","Rumel Ahmed"
+"SP-025043","2026-06-12T18:30:25.043Z","5666666 (Qty:1, Size:32, Col:43)",454,90.80000000000001,544.8,-43990,"Cash","Rumel Ahmed"
