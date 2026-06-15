@@ -1,9 +1,36 @@
 # Dev Mode Check
 
+## 0. প্রাথমিক সেটআপ - নতুন PC তে সব কিছু ইনস্টল করুন
+
+### প্রয়োজনীয় সফটওয়্যার ইনস্টলেশন
+
+#### ধাপ ১: Git ইনস্টল করুন
+1. যান: **https://git-scm.com/download/win**
+2. সর্বশেষ Windows installer ডাউনলোড করুন
+3. `.exe` ফাইল চালান এবং সব ডিফল্ট সেটিংস দিয়ে Next ক্লিক করুন
+4. PowerShell/CMD এ এটি রান করে চেক করুন:
+   ```bash
+   git --version
+   ```
+   যদি version দেখায়, Git ইনস্টল হয়েছে ✓
+
+#### ধাপ ২: Node.js এবং npm ইনস্টল করুন
+1. যান: **https://nodejs.org/** (LTS version ডাউনলোড করুন)
+2. `.msi` installer চালান এবং সব ডিফল্ট সেটিংস দিয়ে Next ক্লিক করুন
+3. PowerShell/CMD এ এটি রান করে চেক করুন:
+   ```bash
+   node --version
+   npm --version
+   ```
+   যদি উভয়ের version দেখায়, সফলভাবে ইনস্টল হয়েছে ✓
+
+---
+
 ## 1. Website Setup (Step by Step)
 
-### প্রয়োজনীয়তা
-- Node.js এবং npm ইনস্টল থাকতে হবে
+### প্রয়োজনীয়তা
+- ✓ **Git** ইনস্টল থাকতে হবে (উপরের ধাপ ১ দেখুন)
+- ✓ **Node.js এবং npm** ইনস্টল থাকতে হবে (উপরের ধাপ ২ দেখুন)
 - কাজের ডিরেক্টরিতে `package.json` থাকা দরকার
 
 ### ইনিশিয়াল সেটআপ
@@ -61,7 +88,7 @@
   ```
 - তারপর ব্রাউজারে খুলুন `http://localhost:4173` বা টার্মিনালে দেখানো পোর্ট
 
-## 2. Application Setup (Electron Desktop App)
+## 3. Application Setup (Electron Desktop App)
 
 ### Electron ডেভ মোড
 - Electron ডেভ মোড চালাতে:
@@ -91,7 +118,7 @@
 - `dist/` বা `build/` ফোল্ডারে প্যাকেজ তৈরি হবে
 - উইন্ডোজ/ম্যাক ইন্সটলার বা পোর্টেবল এক্সিকিউটেবল তৈরি হতে পারে
 
-## 3. Backend / Server Setup
+## 4. Backend / Server Setup
 
 ### সার্ভার আলাদাভাবে চালানো
 - ব্যাকএন্ড সার্ভার চালাতে:
@@ -103,7 +130,7 @@
 - সার্ভার `http://localhost:3000` এ এক্সেসযোগ্য
 - ব্রাউজারে বা Postman/Insomnia এ GET/POST রিকোয়েস্ট পাঠিয়ে দেখুন
 
-## 4. Quick Setup Summary
+## 5. Quick Setup Summary
 
 - ওয়েব ডেভ: `npm install` → `npm run dev` → `http://localhost:5173`
 - ব্যাকএন্ড সার্ভার: `http://localhost:3000` (same command starts both backend and frontend)
@@ -112,7 +139,7 @@
 - Electron ডেভ: `npm run electron:dev`
 - Electron বিল্ড: `npm run electron:build`
 
-## 5. ট্রাবলশুটিং
+## 6. ট্রাবলশুটিং
 
 - যদি `vite` কমান্ড না পড়ে, `npm install` আবার চালান
 - যদি `electron` না থেকে থাকে, `npm install` নিশ্চিত করুন
