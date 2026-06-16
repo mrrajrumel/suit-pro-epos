@@ -429,6 +429,17 @@ fetch("/api/users")
 
 
 
-Next Update: 1) 1 Products SQU Variotion Muti Color Multi Size.
+Next Update:
+1) 1 Products SQU Variotion Muti Color Multi Size.
+2) Card Matchine - PAX A920 Pro terminal SDK (POSLink), Optional (Serial Port / POS XML Protocol)
+3) Cart time Payment Discount option (% type varient all are manual)
+4) Sals Ladger: Today total Report
+5) Sals Ladger: if custmer need Vertual recet (email, whatsapp or etc)
+6) Bussiness capital including analytics: Capital Natwest, Capital Revolt, Capital Cash, Loan or any other types of payment - adding, update, print.
+7) Item Summary / Live Billing Grid : Add Manual Extra Producs including money.
+8) Suppliier Details. 
+9) auth with android apps
+10) Remote wifi Lens HTML 5 Bug
+11) 
 
 
