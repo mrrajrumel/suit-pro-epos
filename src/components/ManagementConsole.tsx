@@ -13,8 +13,10 @@ import {
   Sliders,
   CheckCircle,
   HelpCircle,
-  Loader2
+  Loader2,
+  Clock
 } from "lucide-react";
+import EmployeeTimeCard from "./EmployeeTimeCard";
 
 interface UserProfile {
   id: string;
@@ -48,7 +50,7 @@ interface ManagementConsoleProps {
 }
 
 export default function ManagementConsole({ isIpsHighContrast, currentUserRole }: ManagementConsoleProps) {
-  const [activeSubTab, setActiveSubTab] = useState<"employees" | "devices" | "receipts">("employees");
+  const [activeSubTab, setActiveSubTab] = useState<"employees" | "devices" | "receipts" | "timecards">("employees");
   
   // Employees State
   const [users, setUsers] = useState<UserProfile[]>([]);
@@ -332,7 +334,7 @@ export default function ManagementConsole({ isIpsHighContrast, currentUserRole }
         </div>
         
         {/* Toggle navigation */}
-        <div className="flex bg-[#121217] border border-neutral-800/80 rounded-xl p-1.5 shrink-0 select-none">
+        <div className="flex bg-[#121217] border border-neutral-800/80 rounded-xl p-1.5 shrink-0 select-none gap-1">
           <button
             type="button"
             onClick={() => setActiveSubTab("employees")}
@@ -343,6 +345,18 @@ export default function ManagementConsole({ isIpsHighContrast, currentUserRole }
             }`}
           >
             Employee Control
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveSubTab("timecards")}
+            className={`px-3.5 py-1.5 rounded-lg text-[10px] font-mono uppercase tracking-wider transition-colors duration-250 cursor-pointer flex items-center gap-1 ${
+              activeSubTab === "timecards"
+                ? "bg-[#dfb76c] text-black font-bold"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            <Clock className="w-3 h-3" />
+            Time Cards
           </button>
           <button
             type="button"
@@ -975,6 +989,15 @@ export default function ManagementConsole({ isIpsHighContrast, currentUserRole }
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* SUBTAB CONTENT 4: EMPLOYEE TIME CARDS */}
+      {activeSubTab === "timecards" && (
+        <div className={`border rounded-2xl p-6 ${
+          isIpsHighContrast ? "bg-white border-neutral-200" : "bg-[#121217]/50 border border-neutral-800/60"
+        }`}>
+          <EmployeeTimeCard isIpsHighContrast={isIpsHighContrast} />
         </div>
       )}
 

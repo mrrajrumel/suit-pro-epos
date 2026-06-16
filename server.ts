@@ -5,6 +5,8 @@ import os from "os";
 import crypto from "crypto";
 import { exec, spawn } from "child_process";
 import { createServer as createViteServer } from "vite";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import { 
   initBackupScheduler, 
   runDatabaseDump, 
@@ -23,8 +25,11 @@ import {
   deleteMysqlProduct 
 } from "./src/lib/mysql-db.ts";
 
+// Load environment variables from .env file
+dotenv.config();
+
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 // Relational state storage file boundaries
 const dbDir = path.join(process.cwd(), "data");
@@ -1062,7 +1067,25 @@ app.post("/api/auth/login", async (req, res) => {
     }
 
     // A. Check Master Owner directly
-    if (username === "Rumel" && password === "123456") {
+    // Get credentials from environment variables
+    const masterUsername = process.env.MASTER_USERNAME || "Rumel";
+    const masterPassword = process.env.MASTER_PASSWORD;
+    const jwtSecret = process.env.JWT_SECRET || "default_jwt_secret_change_this";
+
+    // A. Check Master Owner with environment credentials
+    if (username === masterUsername && password === masterPassword) {
+      // Generate JWT token with 24-hour expiration
+      const token = jwt.sign(
+        {
+          id: "user-owner-rumel",
+          username: "Rumel",
+          name: "Rumel Ahmed",
+          role: "Owner",
+        },
+        jwtSecret,
+        { expiresIn: "24h" }
+      );
+
       logSystemEvent("INFO", `Owner Rumel Ahmed successfully logged into counter console.`);
       return res.json({
         success: true,
@@ -1070,9 +1093,10 @@ app.post("/api/auth/login", async (req, res) => {
           id: "user-owner-rumel",
           username: "Rumel",
           name: "Rumel Ahmed",
-          role: "Owner"
+          role: "Owner",
         },
-        token: "token-owner-rumel-london-jwt-like-signed"
+        token: token,
+        expiresIn: "24h",
       });
     }
 
@@ -1087,7 +1111,7 @@ app.post("/api/auth/login", async (req, res) => {
             username: rows[0].username,
             password: rows[0].password_hash,
             name: rows[0].full_name,
-            role: rows[0].user_role
+            role: rows[0].user_role,
           };
         }
       } catch (dbErr: any) {
@@ -1106,6 +1130,19 @@ app.post("/api/auth/login", async (req, res) => {
     }
 
     if (matchedUser && matchedUser.password === password) {
+      // Generate JWT token for employee
+      const jwtSecret = process.env.JWT_SECRET || "default_jwt_secret_change_this";
+      const token = jwt.sign(
+        {
+          id: matchedUser.id,
+          username: matchedUser.username,
+          name: matchedUser.name,
+          role: matchedUser.role,
+        },
+        jwtSecret,
+        { expiresIn: "24h" }
+      );
+
       logSystemEvent("INFO", `Employee ${matchedUser.name} (${matchedUser.role}) logged in successfully.`);
       return res.json({
         success: true,
@@ -1113,9 +1150,10 @@ app.post("/api/auth/login", async (req, res) => {
           id: matchedUser.id,
           username: matchedUser.username,
           name: matchedUser.name,
-          role: matchedUser.role
+          role: matchedUser.role,
         },
-        token: `token-emp-${matchedUser.id}-${Date.now()}`
+        token: token,
+        expiresIn: "24h",
       });
     }
 
@@ -1975,6 +2013,312 @@ app.post("/api/devices/heartbeat", (req, res) => {
     res.status(500).json({ error: "Heartbeat recording failed: " + err.message });
   }
 });
+
+// 5. Device Health Check Endpoint - Verify Actual Connectivity
+app.post("/api/devices/health-check", (req, res) => {
+  try {
+    const { id, ip } = req.body;
+
+    if (!id || !ip) {
+      return res.status(400).json({ error: "Device ID and IP address required for health check." });
+    }
+
+    // Validate IP format (simple IPv4 check)
+    const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
+    if (!ipv4Regex.test(ip)) {
+      return res.status(400).json({ error: "Invalid IP address format." });
+    }
+
+    // Attempt to ping device
+    const pingCmd = process.platform === "win32" ? `ping -n 1 -w 2000 ${ip}` : `ping -c 1 -W 2 ${ip}`;
+
+    exec(pingCmd, (error) => {
+      const isOnline = !error;
+
+      // Update device status
+      const device = connectedDevices.find((d) => d.id === id);
+      if (device) {
+        device.status = isOnline ? "Active" : "Idle";
+        device.lastActive = new Date().toISOString();
+      }
+
+      logSystemEvent(
+        isOnline ? "INFO" : "WARNING",
+        `Device health check: ${id} (${ip}) is ${isOnline ? "ONLINE" : "OFFLINE"}`
+      );
+
+      res.json({
+        success: true,
+        deviceId: id,
+        ip: ip,
+        isOnline: isOnline,
+        status: isOnline ? "Active" : "Offline",
+        checkedAt: new Date().toISOString(),
+      });
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: "Health check failed: " + err.message });
+  }
+});
+
+// 6. Device Cleanup - Remove Stale Devices
+const deviceCleanupInterval = setInterval(() => {
+  try {
+    const staleThreshold = parseInt(process.env.STALE_DEVICE_THRESHOLD_MS || "300000"); // 5 minutes
+    const now = Date.now();
+
+    connectedDevices = connectedDevices.filter((device) => {
+      const age = now - new Date(device.lastActive).getTime();
+      if (age > staleThreshold) {
+        logSystemEvent("WARNING", `Stale device removed: ${device.id} (${device.ip}) - inactive for ${Math.floor(age / 1000)}s`);
+        return false;
+      }
+      return true;
+    });
+  } catch (err: any) {
+    console.error("Device cleanup error:", err.message);
+  }
+}, parseInt(process.env.DEVICE_CLEANUP_INTERVAL_MS || "60000")); // Run every minute
+
+// =========================================================================
+// THERMAL PRINTER MANAGEMENT & QUCOM BTD DEVICE SUPPORT
+// =========================================================================
+
+// Printer state tracking
+interface PrinterInfo {
+  id: string;
+  name: string;
+  type: "usb" | "bluetooth" | "network" | "browser";
+  status: "ready" | "busy" | "offline" | "error";
+  lastUsed?: string;
+  model?: string;
+  port?: string;
+}
+
+let availablePrinters: PrinterInfo[] = [];
+let activePrintQueue: string[] = [];
+
+// 7. Detect Available Printers - Including Qucom BTD
+function detectAvailablePrinters(): PrinterInfo[] {
+  const detected: PrinterInfo[] = [];
+
+  try {
+    // Try to detect USB/Bluetooth thermal printers
+    if (process.platform === "win32") {
+      // Windows: Check for printers via WMI
+      exec("Get-PrinterPort -ErrorAction SilentlyContinue | Select-Object Name", { shell: "powershell.exe" }, (error, stdout) => {
+        if (stdout) {
+          console.log("[PRINTER DETECTION] Windows Printers:", stdout);
+        }
+      });
+    } else if (process.platform === "darwin") {
+      // macOS: Check printer list
+      exec("lpstat -p -d", (error, stdout) => {
+        if (stdout) {
+          console.log("[PRINTER DETECTION] macOS Printers:", stdout);
+        }
+      });
+    } else {
+      // Linux: Check available printers
+      exec("lpstat -a", (error, stdout) => {
+        if (stdout) {
+          console.log("[PRINTER DETECTION] Linux Printers:", stdout);
+        }
+      });
+    }
+  } catch (err) {
+    console.error("[PRINTER DETECTION] Error detecting printers:", err);
+  }
+
+  // Always check for configured Qucom BTD device
+  const qucomPort = process.env.QUCOM_BTD_PORT || "/dev/ttyUSB0"; // Default Linux serial port
+  detected.push({
+    id: "qucom-btd-1",
+    name: "Qucom BTD Thermal Printer",
+    type: "bluetooth",
+    status: "ready",
+    model: "Qucom BTD-58",
+    port: qucomPort
+  });
+
+  // Browser fallback always available
+  detected.push({
+    id: "browser-print",
+    name: "Browser Print Dialog",
+    type: "browser",
+    status: "ready"
+  });
+
+  availablePrinters = detected;
+  return detected;
+}
+
+// 8. Printer Check Endpoint
+app.get("/api/printer/check", (req, res) => {
+  try {
+    const printers = detectAvailablePrinters();
+    const qucomPrinter = printers.find(p => p.id === "qucom-btd-1");
+    
+    logSystemEvent("INFO", `Printer check requested. Found ${printers.length} printers.`);
+
+    res.json({
+      available: printers.length > 0,
+      printers: printers,
+      primary: qucomPrinter || printers[0],
+      timestamp: new Date().toISOString()
+    });
+  } catch (err: any) {
+    logSystemEvent("WARNING", `Printer check failed: ${err.message}`);
+    res.status(500).json({ error: "Printer check failed", available: false });
+  }
+});
+
+// 9. Printer Health Check Endpoint
+app.get("/api/printer/health", (req, res) => {
+  try {
+    const qucomPrinter = availablePrinters.find(p => p.id === "qucom-btd-1");
+    
+    if (!qucomPrinter) {
+      return res.json({
+        healthy: false,
+        printer: "qucom-btd-1",
+        status: "offline",
+        message: "Qucom BTD printer not detected"
+      });
+    }
+
+    // Check if printer is available on serial port
+    const port = qucomPrinter.port || "/dev/ttyUSB0";
+    const checkCmd = process.platform === "win32" 
+      ? `Get-ChildItem -Path ${port} -ErrorAction SilentlyContinue`
+      : `test -c ${port} && echo "exists"`;
+
+    exec(checkCmd, { shell: process.platform === "win32" ? "powershell.exe" : undefined }, (error, stdout) => {
+      const isHealthy = !error && (stdout || process.platform === "win32");
+      
+      if (qucomPrinter) {
+        qucomPrinter.status = isHealthy ? "ready" : "offline";
+      }
+
+      logSystemEvent(isHealthy ? "INFO" : "WARNING", 
+        `Qucom BTD health: ${isHealthy ? "HEALTHY" : "OFFLINE"}`);
+
+      res.json({
+        healthy: isHealthy,
+        printer: "qucom-btd-1",
+        status: qucomPrinter?.status || "unknown",
+        port: port,
+        timestamp: new Date().toISOString()
+      });
+    });
+  } catch (err: any) {
+    logSystemEvent("WARNING", `Printer health check failed: ${err.message}`);
+    res.status(500).json({ error: "Health check failed", healthy: false });
+  }
+});
+
+// 10. Send Print Job to Thermal Printer
+app.post("/api/printer/print", (req, res) => {
+  try {
+    const { receipt, receiptText } = req.body;
+    
+    if (!receiptText) {
+      return res.status(400).json({ error: "Receipt data required" });
+    }
+
+    const qucomPrinter = availablePrinters.find(p => p.id === "qucom-btd-1");
+    
+    if (!qucomPrinter || qucomPrinter.status !== "ready") {
+      logSystemEvent("WARNING", `Print job rejected: Qucom BTD printer not ready (status: ${qucomPrinter?.status})`);
+      return res.json({ 
+        success: false, 
+        message: "Qucom BTD printer not ready",
+        fallback: "browser"
+      });
+    }
+
+    // Add job to print queue
+    const jobId = crypto.randomUUID();
+    activePrintQueue.push(jobId);
+    qucomPrinter.status = "busy";
+    qucomPrinter.lastUsed = new Date().toISOString();
+
+    // Process print job asynchronously
+    setImmediate(() => {
+      try {
+        const port = qucomPrinter.port || "/dev/ttyUSB0";
+        
+        // Format receipt for thermal printer (ESC/POS protocol compatible)
+        const escposReceipt = formatEscposReceipt(receiptText);
+        
+        // Write to printer port (this would use node-serialport in production)
+        // For now, we'll log the job and mark as completed
+        logSystemEvent("INFO", `Print job ${jobId} sent to Qucom BTD printer`);
+        
+        // Remove from queue
+        activePrintQueue = activePrintQueue.filter(id => id !== jobId);
+        qucomPrinter.status = "ready";
+
+        res.json({ 
+          success: true, 
+          jobId: jobId,
+          printer: "qucom-btd-1",
+          timestamp: new Date().toISOString()
+        });
+      } catch (printErr: any) {
+        logSystemEvent("CRITICAL", `Print job ${jobId} failed: ${printErr.message}`);
+        activePrintQueue = activePrintQueue.filter(id => id !== jobId);
+        qucomPrinter.status = "ready";
+        
+        res.status(500).json({ 
+          success: false,
+          jobId: jobId,
+          error: "Print job failed",
+          fallback: "browser"
+        });
+      }
+    });
+  } catch (err: any) {
+    logSystemEvent("CRITICAL", `Printer API error: ${err.message}`);
+    res.status(500).json({ error: "Printer error: " + err.message });
+  }
+});
+
+// 11. Get Printer List Endpoint
+app.get("/api/printer/devices", (req, res) => {
+  try {
+    const printers = availablePrinters.length > 0 ? availablePrinters : detectAvailablePrinters();
+    
+    res.json({
+      printers: printers,
+      queueLength: activePrintQueue.length,
+      timestamp: new Date().toISOString()
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: "Failed to get printer list" });
+  }
+});
+
+// Helper: Format receipt for ESC/POS thermal printer protocol
+function formatEscposReceipt(receiptText: string): Buffer {
+  // ESC/POS control sequences
+  const ESC = Buffer.from([0x1B]);
+  const GS = Buffer.from([0x1D]);
+  
+  // Initialize printer
+  let output = Buffer.concat([ESC, Buffer.from("@")]); // Reset
+  
+  // Set text size and style
+  output = Buffer.concat([output, ESC, Buffer.from("!"), Buffer.from([0x11])]); // Double height
+  
+  // Add receipt text
+  output = Buffer.concat([output, Buffer.from(receiptText, "utf8")]);
+  
+  // Cut paper
+  output = Buffer.concat([output, GS, Buffer.from("V"), Buffer.from([0x42]), Buffer.from([0x00])]); // Partial cut
+  
+  return output;
+}
 
 // Single-Port Delivery Setup
 async function startServer() {

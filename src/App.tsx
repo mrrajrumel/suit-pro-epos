@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { seedDatabaseIfEmpty } from "./lib/db-helpers.ts";
+import ErrorBoundary from "./components/ErrorBoundary.tsx";
 import Dashboard from "./components/Dashboard.tsx";
 import PosTerminal from "./components/PosTerminal.tsx";
 import SalesLedger from "./components/SalesLedger.tsx";
@@ -298,7 +299,8 @@ export default function App() {
   }
 
   return (
-    <div className={`min-h-screen transition-all duration-300 ${
+    <ErrorBoundary>
+      <div className={`min-h-screen transition-all duration-300 ${
       isIpsHighContrast 
         ? "bg-[#f8f9fa] text-[#1a1a24] selection:bg-[#b89047] selection:text-white" 
         : "bg-[#0a0a0c] text-gray-200 selection:bg-[#dfb76c] selection:text-black"
@@ -852,5 +854,6 @@ export default function App() {
       </footer>
 
     </div>
+    </ErrorBoundary>
   );
 }

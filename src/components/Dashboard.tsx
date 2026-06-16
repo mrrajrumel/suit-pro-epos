@@ -654,7 +654,7 @@ export default function Dashboard({ isIpsHighContrast }: { isIpsHighContrast?: b
                 isIpsHighContrast 
                   ? "text-neutral-800 group-hover:text-[#b89047]" 
                   : "text-white group-hover:text-amber-500"
-              }`}>Operating Expenses Ledger (expenses_ledger.csv)</span>
+              }`}>Operating Expenses Ledger (zack) (expenses_ledger.csv)</span>
               <p className={`text-[10px] ${isIpsHighContrast ? "text-neutral-500" : "text-gray-500"}`}>Includes reference numbers, category, and date parameters of cash layout sheets.</p>
             </div>
             <div className={`p-2 rounded-lg group-hover:scale-105 transition-transform shrink-0 ${

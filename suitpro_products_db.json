@@ -8,5 +8,25 @@
     "costPrice": 44444,
     "sellingPrice": 454,
     "stock": 44
+  },
+  {
+    "id": "p-1781640222382",
+    "barcode": "5055588216966",
+    "name": "Kids Suite",
+    "size": "1",
+    "colour": "ds",
+    "costPrice": 10,
+    "sellingPrice": 20,
+    "stock": 4
+  },
+  {
+    "id": "p-1781642982263",
+    "barcode": "5056387389264",
+    "name": "suit",
+    "size": "36",
+    "colour": "blue",
+    "costPrice": 50,
+    "sellingPrice": 100,
+    "stock": 2
   }
 ]

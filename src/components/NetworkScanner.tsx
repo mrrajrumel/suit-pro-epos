@@ -25,11 +25,17 @@ export default function NetworkScanner({ isIpsHighContrast = false }: { isIpsHig
       });
   }, []);
 
-  // 2. Start Camera Feed using HTML5 Media Capture API with robust fallback support
+  // 2. Start Camera Feed using HTML5 Media Capture API with robust fallback support and timeout
   const startCamera = async () => {
     setCameraError(null);
     setCameraActive(false);
     
+    // Add timeout protection (5 seconds)
+    const timeoutMs = 5000;
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Camera access timeout - check permissions or try a different browser")), timeoutMs)
+    );
+
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error("HTML5 MediaDevices API is not supported in this browser environment or iframe context.");
@@ -37,44 +43,68 @@ export default function NetworkScanner({ isIpsHighContrast = false }: { isIpsHig
 
       let stream: MediaStream;
       try {
-        // Attempt 1: Prefer rear-facing camera for scanning barcodes
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" }
-        });
+        // Attempt 1: Prefer rear-facing camera for scanning barcodes (with timeout)
+        stream = await Promise.race([
+          navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment" }
+          }),
+          timeoutPromise
+        ]) as MediaStream;
       } catch (err1) {
         try {
-          // Attempt 2: Fallback to user-facing front camera
-          stream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: "user" }
-          });
+          // Attempt 2: Fallback to user-facing front camera (with timeout)
+          stream = await Promise.race([
+            navigator.mediaDevices.getUserMedia({
+              video: { facingMode: "user" }
+            }),
+            timeoutPromise
+          ]) as MediaStream;
         } catch (err2) {
-          // Attempt 3: Fallback to any available video stream device
-          stream = await navigator.mediaDevices.getUserMedia({
-            video: true
-          });
+          // Attempt 3: Fallback to any available video stream device (with timeout)
+          stream = await Promise.race([
+            navigator.mediaDevices.getUserMedia({
+              video: true
+            }),
+            timeoutPromise
+          ]) as MediaStream;
         }
       }
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.setAttribute("playsinline", "true"); // critical for iOS
-        videoRef.current.play();
-        setCameraActive(true);
         
-        // Log operation on server logs
-        fetch("/api/logs", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            type: "info",
-            message: `REMOTE TERMINAL INITIATED: Built-in device camera mounted on remote barcode endpoint.`
-          })
-        });
+        // Wait for video to load
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current?.play();
+          setCameraActive(true);
+          
+          // Log operation on server logs
+          fetch("/api/logs", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: "info",
+              message: `✓ REMOTE TERMINAL BARCODE SCANNER: Camera successfully initialized for barcode scanning.`
+            })
+          }).catch(() => {/* ignore logging errors */});
+        };
       }
     } catch (err: any) {
-      // Gracefully warn instead of console.error to prevent automated test/CI suite alert pollution
-      console.warn("Camera mounting info:", err?.message || err);
-      setCameraError("Camera device is absent or access is blocked. Ensure appropriate camera/iframe permissions are configured.");
+      // Proper error handling instead of just warning
+      const errorMsg = err?.message || "Unknown camera error";
+      console.error("Camera error:", errorMsg);
+      setCameraError(errorMsg);
+      
+      // Log error to server
+      fetch("/api/logs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "error",
+          message: `✗ BARCODE SCANNER CAMERA FAILED: ${errorMsg}`
+        })
+      }).catch(() => {/* ignore logging errors */});
     }
   };
 

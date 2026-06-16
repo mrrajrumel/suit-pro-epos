@@ -3,6 +3,7 @@ import { Product, CartesianItem, SaleInvoice, ReceiptLog } from "../types.ts";
 import { getProducts, addSaleInvoice, addReceiptLog, addSystemLog } from "../lib/db-helpers.ts";
 import { ShoppingCart, Scan, User, Trash2, Printer, Plus, Minus, CreditCard, DollarSign, Wallet, AlertTriangle, FileText, ClipboardList, ShieldAlert, Sparkles, RefreshCw } from "lucide-react";
 import { parseInventorySpreadsheet, executeImportUpsert } from "../lib/import-service.ts";
+import { getPrinterService } from "../lib/printer-service.ts";
 
 interface PosTerminalProps {
   onTransactionComplete: () => void;
@@ -142,43 +143,85 @@ export default function PosTerminal({
     };
   }, []);
 
-  const triggerThermalPrint = () => {
-    console.log("[SUIT PRO Print Dispatcher] Beginning formatting layout checks on thermal receipt stream...");
-    const receiptEl = document.getElementById("print-recipient-receipt");
-    if (!receiptEl) {
-      console.error("[SUIT PRO Print Dispatcher] CRITICAL: Thermal receipt stream element was not found in active document body!");
-      setErrorStatus("Hardware Stream Error: receipt container absent.");
-      return;
-    }
-
-    // Network connection status safeguard check
-    const isOffline = !navigator.onLine;
-    if (isOffline) {
-      setErrorStatus("[HARDWARE OFFLINE WARNING] Local boutiques network is offline. Remote thermal spooler unreachable.");
-      return;
-    }
-
-    // Print Timing Handshake Timeout Safeguard check
-    const printTimer = setTimeout(() => {
-      console.warn("[SUIT PRO Print Dispatcher] Hardware printing macro timeout! Checked for spooler blockages or offline USB/Wi-Fi printer nodes.");
-      setErrorStatus("[SPOOLER TIMEOUT ALERT] Thermal printer hardware failed to respond within 2.5 seconds. Check power status & paper feed.");
-    }, 2500);
-
+  const triggerThermalPrint = async () => {
     try {
-      const printStartTime = Date.now();
-      window.print();
-      clearTimeout(printTimer); // Succeeded before timeout tag
-      const printDuration = Date.now() - printStartTime;
-      console.log(`[SUIT PRO Print Dispatcher] System print command completed in ${printDuration}ms.`);
+      console.log("[SUIT PRO Print Dispatcher] Starting receipt print process...");
       
-      if (printDuration > 150) {
-        setSuccessStatus("Thermal print successfully dispatched to active spooler feed. Standard 80mm roll print active.");
-        setTimeout(() => setSuccessStatus(null), 3500);
+      if (!currentInvoice) {
+        setErrorStatus("No invoice available to print");
+        return;
       }
-    } catch (printErr: any) {
-      clearTimeout(printTimer);
-      console.error("[SUIT PRO Print Dispatcher] Native print macro execution aborted!", printErr);
-      setErrorStatus(`Thermal Receipt Spooler Timeout / Intercepted: ${printErr.message || "Connected hardware reported offline."}`);
+
+      const receiptEl = document.getElementById("print-recipient-receipt");
+      if (!receiptEl) {
+        console.error("[SUIT PRO Print Dispatcher] CRITICAL: Receipt element not found!");
+        setErrorStatus("Hardware Stream Error: receipt container absent.");
+        return;
+      }
+
+      // Check network status
+      const isOffline = !navigator.onLine;
+      if (isOffline) {
+        console.warn("[SUIT PRO Print Dispatcher] Network offline - using offline print");
+      }
+
+      setSuccessStatus("Printing receipt...");
+
+      // Try thermal printer first
+      const printer = getPrinterService();
+      if (printer) {
+        const isHealthy = await printer.isHealthy();
+        if (isHealthy) {
+          console.log("[SUIT PRO Print Dispatcher] Using thermal printer...");
+          
+          const printSuccess = await printer.printReceipt({
+            headerGreetings: "SUIT PRO LONDON - THANK YOU",
+            items: currentInvoice.items.map(item => ({
+              name: item.name,
+              qty: item.qty,
+              price: item.sellingPrice,
+              size: item.size,
+              colour: item.colour,
+            })),
+            subtotal: currentInvoice.subtotal,
+            vat: currentInvoice.vat,
+            total: currentInvoice.total,
+            profit: (currentInvoice as any).profit,
+            timestamp: currentInvoice.timestamp,
+            invoiceId: currentInvoice.id,
+            salesperson: currentInvoice.salesperson,
+            paymentMethod: currentInvoice.paymentMethod as string,
+          });
+
+          if (printSuccess) {
+            setSuccessStatus("✓ Receipt printed successfully!");
+            console.log("[SUIT PRO Print Dispatcher] Thermal print completed");
+            setTimeout(() => setSuccessStatus(null), 3000);
+            return;
+          }
+        }
+      }
+
+      // Fallback to browser print
+      console.log("[SUIT PRO Print Dispatcher] Thermal printer unavailable - using browser print");
+      receiptEl.classList.add("auto-layout-print");
+      document.body.classList.add("auto-printing-active");
+
+      try {
+        window.print();
+        setSuccessStatus("✓ Receipt sent to browser print queue");
+        setTimeout(() => setSuccessStatus(null), 3000);
+      } catch (browserPrintErr: any) {
+        console.error("[SUIT PRO Print Dispatcher] Browser print failed:", browserPrintErr);
+        setErrorStatus(`Print error: ${browserPrintErr.message}`);
+      } finally {
+        receiptEl.classList.remove("auto-layout-print");
+        document.body.classList.remove("auto-printing-active");
+      }
+    } catch (err: any) {
+      console.error("[SUIT PRO Print Dispatcher] Print error:", err.message);
+      setErrorStatus(`Print failed: ${err.message}`);
+      setTimeout(() => setErrorStatus(null), 3000);
     }
   };
 
