@@ -28,5 +28,15 @@
     "costPrice": 50,
     "sellingPrice": 100,
     "stock": 2
+  },
+  {
+    "id": "p-1781644620639",
+    "barcode": "1",
+    "name": "1",
+    "size": "1",
+    "colour": "1",
+    "costPrice": 1,
+    "sellingPrice": 1,
+    "stock": 1
   }
 ]
