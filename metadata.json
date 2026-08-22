@@ -1,0 +1,6 @@
+{
+  "name": "SUIT PRO EPOS",
+  "description": "Premium full-stack Point of Sale and Inventory Management system for SUIT PRO London.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

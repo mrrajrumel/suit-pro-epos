@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # 1. Main PostgreSQL Database Engine with Optimal Indexes
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: suitpro_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin_secure_password
+      POSTGRES_DB: suitpro_epos
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database_schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d suitpro_epos"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Main High-Brightness Optimised web EPOS application
+  epos-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: suitpro_terminal_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_DB=suitpro_epos
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin_secure_password
+      - POSTGRES_PORT=5432
+      - GOOGLE_SHEET_ID=1SUITPRO_SAVIL_ROW_LEDGER_SHEETS_ID
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+
+  # 3. Background Python Spreadsheet Sync Engine
+  background-sync-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: suitpro_sync_worker
+    restart: always
+    command: ["python3", "sync_sheets.py"]
+    environment:
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_DB=suitpro_epos
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin_secure_password
+      - POSTGRES_PORT=5432
+      - GOOGLE_SHEET_ID=1SUITPRO_SAVIL_ROW_LEDGER_SHEETS_ID
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+    driver: local

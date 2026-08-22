@@ -1,0 +1,862 @@
+[
+  {
+    "id": "SP-967143",
+    "items": [
+      {
+        "id": "v-twd-cg-40",
+        "barcode": "5012345000117",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 40R",
+        "size": "40R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 8,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 76,
+    "total": 456,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 456,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-11T13:46:07.143Z"
+  },
+  {
+    "id": "SP-190284",
+    "items": [
+      {
+        "id": "v-twd-cg-40",
+        "barcode": "5012345000117",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 40R",
+        "size": "40R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 7,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 0,
+    "total": 380,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 380,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T08:53:10.284Z"
+  },
+  {
+    "id": "SP-257268",
+    "items": [
+      {
+        "id": "v-twd-cg-40",
+        "barcode": "5012345000117",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 40R",
+        "size": "40R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 5,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 76,
+    "total": 456,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 456,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T08:54:17.268Z",
+    "digitalReceiptMethod": "whatsapp"
+  },
+  {
+    "id": "SP-476242",
+    "items": [
+      {
+        "id": "v-twd-cg-40",
+        "barcode": "5012345000117",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 40R",
+        "size": "40R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 4,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 76,
+    "total": 456,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 456,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T08:57:56.242Z"
+  },
+  {
+    "id": "SP-635689",
+    "items": [
+      {
+        "id": "v-twd-cg-40",
+        "barcode": "5012345000117",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 40R",
+        "size": "40R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 3,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 76,
+    "total": 456,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 456,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T09:00:35.689Z",
+    "digitalReceiptMethod": "whatsapp"
+  },
+  {
+    "id": "SP-909897",
+    "items": [
+      {
+        "id": "v-twd-cg-40",
+        "barcode": "5012345000117",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 40R",
+        "size": "40R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 2,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      },
+      {
+        "id": "CST-3511",
+        "barcode": "MANUAL-511",
+        "name": "hg",
+        "sellingPrice": 10,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 390,
+    "vat": 78,
+    "total": 468,
+    "profit": 250,
+    "paymentMethod": "Cash",
+    "amountTendered": 468,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T09:05:09.897Z"
+  },
+  {
+    "id": "SP-153390",
+    "items": [
+      {
+        "id": "v-twd-cg-40",
+        "barcode": "5012345000117",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 40R",
+        "size": "40R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 1,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 76,
+    "total": 456,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 456,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T09:09:13.391Z"
+  },
+  {
+    "id": "SP-809607",
+    "items": [
+      {
+        "id": "v-tux-mb-38",
+        "barcode": "5012345000018",
+        "name": "Savile Row Bespoke Tuxedo - Midnight Blue / 38R",
+        "size": "38R",
+        "colour": "Midnight Blue",
+        "costPrice": 250,
+        "sellingPrice": 699,
+        "stock": 12,
+        "parentProductId": "p-tuxedo",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 699,
+    "vat": 139.8,
+    "total": 838.8,
+    "profit": 449,
+    "paymentMethod": "Cash",
+    "amountTendered": 838.8,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T09:20:09.607Z"
+  },
+  {
+    "id": "SP-850479",
+    "items": [
+      {
+        "id": "v-twd-cg-42",
+        "barcode": "5012345000124",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 42R",
+        "size": "42R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 5,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 76,
+    "total": 456,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 456,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T09:20:50.480Z"
+  },
+  {
+    "id": "SP-690013",
+    "items": [
+      {
+        "id": "v-tux-mb-38",
+        "barcode": "5012345000018",
+        "name": "Savile Row Bespoke Tuxedo - Midnight Blue / 38R",
+        "size": "38R",
+        "colour": "Midnight Blue",
+        "costPrice": 250,
+        "sellingPrice": 699,
+        "stock": 11,
+        "parentProductId": "p-tuxedo",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 699,
+    "vat": 139.8,
+    "total": 838.8,
+    "profit": 449,
+    "paymentMethod": "Cash",
+    "amountTendered": 838.8,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T09:34:50.013Z"
+  },
+  {
+    "id": "SP-801942",
+    "items": [
+      {
+        "id": "v-tux-mb-38",
+        "barcode": "5012345000018",
+        "name": "Savile Row Bespoke Tuxedo - Midnight Blue / 38R",
+        "size": "38R",
+        "colour": "Midnight Blue",
+        "costPrice": 250,
+        "sellingPrice": 699,
+        "stock": 10,
+        "parentProductId": "p-tuxedo",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 699,
+    "vat": 139.8,
+    "total": 838.8,
+    "profit": 449,
+    "paymentMethod": "Cash",
+    "amountTendered": 838.8,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T16:33:21.942Z"
+  },
+  {
+    "id": "SP-899764",
+    "items": [
+      {
+        "id": "v-twd-cg-42",
+        "barcode": "5012345000124",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 42R",
+        "size": "42R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 4,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      },
+      {
+        "id": "CST-4897",
+        "barcode": "MANUAL-897",
+        "name": "Belt, Shirt",
+        "sellingPrice": 20,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true,
+        "itemDiscountType": "percent",
+        "itemDiscountAmount": 5
+      }
+    ],
+    "subtotal": 399,
+    "vat": 79.80000000000001,
+    "total": 478.8,
+    "profit": 259,
+    "paymentMethod": "Cash",
+    "amountTendered": 478.8,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T16:34:59.765Z"
+  },
+  {
+    "id": "SP-088691",
+    "items": [
+      {
+        "id": "v-tux-mb-38",
+        "barcode": "5012345000018",
+        "name": "Savile Row Bespoke Tuxedo - Midnight Blue / 38R",
+        "size": "38R",
+        "colour": "Midnight Blue",
+        "costPrice": 250,
+        "sellingPrice": 699,
+        "stock": 9,
+        "parentProductId": "p-tuxedo",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 699,
+    "vat": 139.8,
+    "total": 838.8,
+    "profit": 449,
+    "paymentMethod": "Cash",
+    "amountTendered": 838.8,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-13T16:38:08.691Z",
+    "customerName": "Rumel Ahmed",
+    "customerPhone": "+8801755140566",
+    "customerEmail": "rajrum3l@gmail.com",
+    "digitalReceiptMethod": "whatsapp"
+  },
+  {
+    "id": "SP-407060",
+    "items": [
+      {
+        "id": "v-twd-fg-42",
+        "barcode": "5012345000148",
+        "name": "Chelsea Wool Tweed Blazer - Forest Green / 42R",
+        "size": "42R",
+        "colour": "Forest Green",
+        "costPrice": 145,
+        "sellingPrice": 385,
+        "stock": 4,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 385,
+    "vat": 77,
+    "total": 462,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 462,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:06:47.060Z"
+  },
+  {
+    "id": "SP-458161",
+    "items": [
+      {
+        "id": "CST-4884",
+        "barcode": "MANUAL-884",
+        "name": "gh",
+        "sellingPrice": 10,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 10,
+    "vat": 2,
+    "total": 12,
+    "profit": 10,
+    "paymentMethod": "Cash",
+    "amountTendered": 12,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:07:38.161Z"
+  },
+  {
+    "id": "SP-811847",
+    "items": [
+      {
+        "id": "v-twd-cg-40",
+        "barcode": "5012345000117",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 40R",
+        "size": "40R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 7,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 76,
+    "total": 456,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 456,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:13:31.856Z"
+  },
+  {
+    "id": "SP-222825",
+    "items": [
+      {
+        "id": "v-tux-mb-38",
+        "barcode": "5012345000018",
+        "name": "Savile Row Bespoke Tuxedo - Midnight Blue / 38R",
+        "size": "38R",
+        "colour": "Midnight Blue",
+        "costPrice": 250,
+        "sellingPrice": 699,
+        "stock": 8,
+        "parentProductId": "p-tuxedo",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 699,
+    "vat": 0,
+    "total": 699,
+    "profit": 449,
+    "paymentMethod": "Cash",
+    "amountTendered": 699,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:20:22.825Z"
+  },
+  {
+    "id": "SP-906401",
+    "items": [
+      {
+        "id": "v-twd-cg-42",
+        "barcode": "5012345000124",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 42R",
+        "size": "42R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 3,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 0,
+    "total": 380,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 380,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:31:46.401Z"
+  },
+  {
+    "id": "SP-145280",
+    "items": [
+      {
+        "id": "CST-8278",
+        "barcode": "MANUAL-278",
+        "name": "jkkkkkkkkk",
+        "sellingPrice": 199999,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 199999,
+    "vat": 0,
+    "total": 199999,
+    "profit": 199999,
+    "paymentMethod": "Cash",
+    "amountTendered": 199999,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:35:45.280Z"
+  },
+  {
+    "id": "SP-591273",
+    "items": [
+      {
+        "id": "v-twd-cg-42",
+        "barcode": "5012345000124",
+        "name": "Chelsea Wool Tweed Blazer - Charcoal Grey / 42R",
+        "size": "42R",
+        "colour": "Charcoal Grey",
+        "costPrice": 140,
+        "sellingPrice": 380,
+        "stock": 2,
+        "parentProductId": "p-tweed",
+        "isVariation": true,
+        "qty": 1
+      }
+    ],
+    "subtotal": 380,
+    "vat": 0,
+    "total": 380,
+    "profit": 240,
+    "paymentMethod": "Cash",
+    "amountTendered": 380,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:43:11.273Z",
+    "customerName": "Rumel Ahmed",
+    "customerPhone": "+8801755140566",
+    "customerEmail": "rajrum3l@gmail.com",
+    "digitalReceiptMethod": "whatsapp"
+  },
+  {
+    "id": "SP-006207",
+    "items": [
+      {
+        "id": "CST-8911",
+        "barcode": "MANUAL-911",
+        "name": "yu",
+        "sellingPrice": 23,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 23,
+    "vat": 0,
+    "total": 23,
+    "profit": 23,
+    "paymentMethod": "Cash",
+    "amountTendered": 23,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:50:06.207Z"
+  },
+  {
+    "id": "SP-169399",
+    "items": [
+      {
+        "id": "CST-7047",
+        "barcode": "MANUAL-047",
+        "name": "yyyyyyyyyyt",
+        "sellingPrice": 200,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 200,
+    "vat": 0,
+    "total": 200,
+    "profit": 200,
+    "paymentMethod": "Cash",
+    "amountTendered": 200,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:52:49.399Z"
+  },
+  {
+    "id": "SP-211276",
+    "items": [
+      {
+        "id": "CST-2822",
+        "barcode": "MANUAL-822",
+        "name": "fty",
+        "sellingPrice": 20,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 20,
+    "vat": 0,
+    "total": 20,
+    "profit": 20,
+    "paymentMethod": "Cash",
+    "amountTendered": 20,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:53:31.276Z"
+  },
+  {
+    "id": "SP-233270",
+    "items": [
+      {
+        "id": "CST-7748",
+        "barcode": "MANUAL-748",
+        "name": "54t64",
+        "sellingPrice": 1000,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 1000,
+    "vat": 0,
+    "total": 1000,
+    "profit": 1000,
+    "paymentMethod": "Cash",
+    "amountTendered": 1000,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:53:53.270Z"
+  },
+  {
+    "id": "SP-472933",
+    "items": [
+      {
+        "id": "CST-5911",
+        "barcode": "MANUAL-911",
+        "name": "3333333",
+        "sellingPrice": 56,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 56,
+    "vat": 0,
+    "total": 56,
+    "profit": 56,
+    "paymentMethod": "Split (Cash: £2.00 + Cash: £54.00)",
+    "amountTendered": 56,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T10:57:52.933Z"
+  },
+  {
+    "id": "SP-615217",
+    "items": [
+      {
+        "id": "CST-0858",
+        "barcode": "MANUAL-858",
+        "name": "gfffff",
+        "sellingPrice": 20,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 20,
+    "vat": 0,
+    "total": 20,
+    "profit": 20,
+    "paymentMethod": "Cash",
+    "amountTendered": 20,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T11:00:15.217Z"
+  },
+  {
+    "id": "SP-777586",
+    "items": [
+      {
+        "id": "CST-4365",
+        "barcode": "MANUAL-365",
+        "name": "45555",
+        "sellingPrice": 30,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 30,
+    "vat": 5,
+    "total": 30,
+    "profit": 30,
+    "paymentMethod": "Cash",
+    "amountTendered": 30,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T11:02:57.586Z"
+  },
+  {
+    "id": "SP-801685",
+    "items": [
+      {
+        "id": "CST-9293",
+        "barcode": "MANUAL-293",
+        "name": "tytytytytyty",
+        "sellingPrice": 60,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 60,
+    "vat": 13.85,
+    "total": 60,
+    "profit": 60,
+    "paymentMethod": "Cash",
+    "amountTendered": 60,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T11:03:21.685Z"
+  },
+  {
+    "id": "SP-120561",
+    "items": [
+      {
+        "id": "CST-6953",
+        "barcode": "MANUAL-953",
+        "name": "ewwww",
+        "sellingPrice": 3333333333,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 3333333333,
+    "vat": 2323232323,
+    "total": 3333333333,
+    "profit": 3333333333,
+    "paymentMethod": "Cash",
+    "amountTendered": 3333333333,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T11:08:40.561Z"
+  },
+  {
+    "id": "SP-172160",
+    "items": [
+      {
+        "id": "CST-0196",
+        "barcode": "MANUAL-196",
+        "name": "ad",
+        "sellingPrice": 244444444,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 244444444,
+    "vat": 56410256.31,
+    "total": 244444444,
+    "profit": 244444444,
+    "paymentMethod": "Cash",
+    "amountTendered": 244444444,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T11:09:32.160Z"
+  },
+  {
+    "id": "SP-511087",
+    "items": [
+      {
+        "id": "CST-8614",
+        "barcode": "MANUAL-614",
+        "name": "hjjjjj",
+        "sellingPrice": 345,
+        "costPrice": 0,
+        "stock": 99999,
+        "size": "N/A",
+        "colour": "Custom Service",
+        "qty": 1,
+        "isCustomItem": true
+      }
+    ],
+    "subtotal": 345,
+    "vat": 69,
+    "total": 345,
+    "profit": 345,
+    "paymentMethod": "Cash",
+    "amountTendered": 345,
+    "changeDue": 0,
+    "salesperson": "Rumel Ahmed",
+    "timestamp": "2026-08-15T11:15:11.087Z"
+  }
+]

@@ -1,0 +1,56 @@
+SUIT PRO POS - SYSTEM AUDIT REPORT
+Date: 2026-07-02
+
+Overview
+- Audited the Electron shell, boot screen, UI entry point, dependency tree, and core app startup flow.
+- Focus was on black-screen startup failures, install-time polish, obvious security issues, and Windows packaging stability.
+
+What was fixed
+1. Startup / black-screen issue
+- Added a visible branded loading screen so the app no longer appears as a dead black window while booting.
+- Ensured the main window stays hidden until the UI is ready to present.
+- Added a safer initial app-shell render path to reduce first-paint instability.
+
+2. Windows app identity and installer polish
+- Shortened the app display name to SuitPro.
+- Set the publisher to Suit Pro London.
+- Updated the app title and splash screen text to use the shorter branded name.
+- Added explicit Windows metadata in the packaging config.
+
+3. Security hardening
+- Routed external links through the Electron shell instead of allowing untrusted popups to bypass app controls.
+- Hardened the fetch URL handling to build absolute safe URLs for local API requests.
+- Removed known vulnerable dependency issues via npm audit fix.
+- Fixed the Windows startup crash caused by calling loadURL on a destroyed BrowserWindow during shutdown/retry cycles.
+
+4. UI boot stability
+- Added a stronger fallback root container and base CSS reset to avoid a blank first paint.
+- Normalized the app background and startup styling for a smoother initial appearance.
+
+5. Packaging / build stability
+- The runtime startup crash is fixed.
+- The Windows packaging flow is still being validated; the current electron-builder config is being rechecked because the installer step is returning a schema validation error.
+
+Known remaining notes
+- The custom build wrapper is still sensitive to this shell environment, but the app itself was verified through direct Vite and esbuild commands.
+- The app is now much more robust for first launch and Windows install scenarios.
+
+Files reviewed / touched
+- index.html
+- src/main.tsx
+- src/index.css
+- electron-main.cjs
+- package.json
+- preload.cjs
+
+Verification summary
+- TypeScript diagnostics: no editor errors in the updated files.
+- Frontend build: verified successfully via Vite.
+- Backend build: verified successfully via esbuild.
+- Dependency audit: no remaining vulnerabilities after npm audit fix.
+
+
+
+
+
+

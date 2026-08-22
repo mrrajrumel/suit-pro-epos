@@ -1,0 +1,89 @@
+{
+  "name": "suit-pro-london-pos",
+  "description": "SUIT PRO London POS desktop application",
+  "author": "Rumel Ahmed (@mrrajrumel)",
+  "copyright": "© 2026 Rumel Ahmed (@mrrajrumel)",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "electron-main.cjs",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "node scripts/build.cjs",
+    "start": "node dist/server.cjs",
+    "clean": "rm -rf dist server.js",
+    "lint": "tsc --noEmit",
+    "setup:windows": "powershell -ExecutionPolicy Bypass -File .\\scripts\\setup-windows.ps1",
+    "postinstall": "node scripts/postinstall.cjs",
+    "electron:start": "electron .",
+    "electron:pack": "electron-builder build --config electron-builder.json --win"
+  },
+  "build": {
+    "appId": "com.suitpro.london.pos",
+    "productName": "SuitPro",
+    "copyright": "© 2026 Suit Pro London",
+    "icon": "public/icon.png",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "public/favicon.ico",
+      "artifactName": "${productName}-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SuitPro",
+      "installerIcon": "public/favicon.ico",
+      "uninstallerIcon": "public/favicon.ico",
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "SuitProLondonPOS-${version}-setup.${ext}"
+    },
+    "files": [
+      "dist/**/*",
+      "electron-main.cjs",
+      "preload.cjs",
+      "sync_sheets.py",
+      "package.json",
+      "public/**/*",
+      "suitpro_products_db.json",
+      "suitpro_users_db.json"
+    ]
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/qrcode": "^1.5.6",
+    "@vitejs/plugin-react": "^5.0.4",
+    "dotenv": "^17.2.3",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "mysql2": "^3.22.5",
+    "qrcode": "^1.5.4",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "recharts": "^3.8.1",
+    "vite": "^6.2.3"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.21",
+    "electron": "^43.0.0",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "appId": "com.suitpro.london.pos",
+  "productName": "SuitPro",
+  "copyright": "© 2026 Suit Pro London",
+  "files": [
+    "dist/**/*",
+    "electron-main.cjs",
+    "preload.cjs",
+    "sync_sheets.py",
+    "package.json",
+    "public/**/*",
+    "suitpro_products_db.json",
+    "suitpro_users_db.json"
+  ],
+  "directories": {
+    "buildResources": "public"
+  },
+  "win": {
+    "target": "nsis",
+    "icon": "public/favicon.ico",
+    "artifactName": "${productName}-${version}.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "SuitPro",
+    "installerIcon": "public/favicon.ico",
+    "uninstallerIcon": "public/favicon.ico",
+    "artifactName": "SuitProLondonPOS-${version}-setup.${ext}"
+  }
+}

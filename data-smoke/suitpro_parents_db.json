@@ -1,0 +1,22 @@
+[
+  {
+    "id": "p-1783057934634-6834",
+    "barcode": "undefined",
+    "name": "Savile Row Bespoke Tuxedo",
+    "size": "undefined",
+    "colour": "N/A",
+    "costPrice": null,
+    "sellingPrice": 699,
+    "stock": null
+  },
+  {
+    "id": "p-1783057934634-9707",
+    "barcode": "undefined",
+    "name": "Chelsea Wool Tweed Blazer",
+    "size": "undefined",
+    "colour": "N/A",
+    "costPrice": null,
+    "sellingPrice": 380,
+    "stock": null
+  }
+]
